@@ -21,8 +21,8 @@ importers:
         specifier: ^6.0.0
         version: 6.19.3(prisma@6.19.3(typescript@5.9.3))(typescript@5.9.3)
       '@unerp/service-kit':
-        specifier: git+https://github.com/kannan19302/ERPSys.git
-        version: git+https://github.com/kannan19302/ERPSys.git#f400863d4b0a49bd57b28140cde5dd6e5a948cc6&path:packages/service-kit
+        specifier: github:kannan19302/ERPSys#path:packages/service-kit
+        version: https://codeload.github.com/kannan19302/ERPSys/tar.gz/56fb0699b8f8aec5bf8d5e044fcef3fc236c540d#path:packages/service-kit
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
@@ -191,8 +191,8 @@ packages:
   '@types/serve-static@2.2.0':
     resolution: {integrity: sha512-8mam4H1NHLtu7nmtalF7eyBH14QyOASmcxHhSfEoRyr0nP/YdoesEtU+uSRvMe96TW/HPTtkoKqQLl53N7UXMQ==}
 
-  '@unerp/service-kit@git+https://github.com/kannan19302/ERPSys.git#f400863d4b0a49bd57b28140cde5dd6e5a948cc6&path:packages/service-kit':
-    resolution: {commit: f400863d4b0a49bd57b28140cde5dd6e5a948cc6, path: packages/service-kit, repo: https://github.com/kannan19302/ERPSys.git, type: git}
+  '@unerp/service-kit@https://codeload.github.com/kannan19302/ERPSys/tar.gz/56fb0699b8f8aec5bf8d5e044fcef3fc236c540d#path:packages/service-kit':
+    resolution: {path: packages/service-kit, tarball: https://codeload.github.com/kannan19302/ERPSys/tar.gz/56fb0699b8f8aec5bf8d5e044fcef3fc236c540d}
     version: 0.2.0
 
   accepts@2.0.0:
@@ -923,7 +923,7 @@ snapshots:
       '@types/http-errors': 2.0.5
       '@types/node': 22.20.1
 
-  '@unerp/service-kit@git+https://github.com/kannan19302/ERPSys.git#f400863d4b0a49bd57b28140cde5dd6e5a948cc6&path:packages/service-kit': {}
+  '@unerp/service-kit@https://codeload.github.com/kannan19302/ERPSys/tar.gz/56fb0699b8f8aec5bf8d5e044fcef3fc236c540d#path:packages/service-kit': {}
 
   accepts@2.0.0:
     dependencies:

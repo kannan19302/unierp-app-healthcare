@@ -1,0 +1,33 @@
+{
+  "name": "unierp-app-healthcare",
+  "version": "1.0.0",
+  "private": true,
+  "description": "UniERP Healthcare industry app: declarative bundle + out-of-process service",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "dev": "ts-node src/main.ts",
+    "typecheck": "tsc --noEmit",
+    "prisma:generate": "prisma generate",
+    "prisma:deploy": "prisma migrate deploy",
+    "bundle:validate": "node scripts/validate-bundle.mjs",
+    "migrate:from-core": "node scripts/migrate-from-core.mjs"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.0.0",
+    "@nestjs/core": "^11.0.0",
+    "@nestjs/platform-express": "^11.0.0",
+    "@prisma/client": "^6.0.0",
+    "@unerp/service-kit": "github:kannan19302/ERPSys#path:packages/service-kit",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.0.0",
+    "pg": "^8.13.0",
+    "prisma": "^6.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.0"
+  }
+}

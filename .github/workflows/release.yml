@@ -1,0 +1,33 @@
+name: Release
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install -g pnpm && pnpm install
+      - run: pnpm bundle:validate
+      - name: Push service image
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          docker build -t ghcr.io/${{ github.repository }}:${{ github.ref_name }} .
+          docker push ghcr.io/${{ github.repository }}:${{ github.ref_name }}
+      - name: Publish bundle to UniERP marketplace
+        if: ${{ vars.UNIERP_API_URL != '' }}
+        env:
+          UNIERP_API_URL: ${{ vars.UNIERP_API_URL }}
+          UNIERP_VENDOR_TOKEN: ${{ secrets.UNIERP_VENDOR_TOKEN }}
+        run: |
+          curl -sf -X POST "$UNIERP_API_URL/api/v1/marketplace/developer/apps/field-service/bundles" \
+            -H "Authorization: Bearer $UNIERP_VENDOR_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data @bundle/manifest.json

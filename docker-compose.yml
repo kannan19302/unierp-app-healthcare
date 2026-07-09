@@ -1,0 +1,19 @@
+# Joins the `unierp` external network created by unierp-core's dev compose.
+# The service uses its own database (unierp_healthcare) on the shared dev
+# Postgres instance — logical isolation, no cross-schema access.
+services:
+  healthcare-svc:
+    build: .
+    container_name: unierp-healthcare-svc
+    environment:
+      PORT: 4104
+      DATABASE_URL: postgresql://unerp:unerp_password@unerp-postgres:5432/unierp_healthcare?schema=public
+      EXT_SERVICE_JWT_SECRET: ${EXT_SERVICE_JWT_SECRET:-dev-ext-secret-change-me}
+    ports:
+      - "4104:4104"
+    networks:
+      - unierp
+
+networks:
+  unierp:
+    external: true

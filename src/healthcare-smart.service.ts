@@ -93,10 +93,11 @@ export class HealthcareSmartService {
     const batch = await coreClient().recordsBatch([
       `${APP}_patient`, `${APP}_problem`, `${APP}_lab-result`, `${APP}_immunization-record`,
     ]);
-    const patients = batch[`${APP}_patient`] || [];
-    const problems = batch[`${APP}_problem`] || [];
-    const labs = batch[`${APP}_lab-result`] || [];
-    const immun = batch[`${APP}_immunization-record`] || [];
+    // Dynamic bundle records are untyped JSON; match the loose typing `records()` already uses.
+    const patients: any[] = batch[`${APP}_patient`] || [];
+    const problems: any[] = batch[`${APP}_problem`] || [];
+    const labs: any[] = batch[`${APP}_lab-result`] || [];
+    const immun: any[] = batch[`${APP}_immunization-record`] || [];
 
     const diabetics = problems.filter((p) => /diabetes/i.test(p.description || '')).map((p) => p.patient_mrn);
     const diabeticsWithA1c = new Set(labs.filter((l) => /a1c/i.test(l.test_name || '')).map((l) => l.patient_mrn));

@@ -17,7 +17,7 @@ async function bootstrap() {
     tenantContextMiddleware({
       secret,
       appSlug: APP_SLUG,
-      publicPaths: [HEALTH_PATH],
+      publicPaths: [HEALTH_PATH, '/events'],
     }),
   );
   app.use((req: any, _res: any, next: any) => tokenStore.run({ token: String(req.headers[TENANT_TOKEN_HEADER] || '') }, next));

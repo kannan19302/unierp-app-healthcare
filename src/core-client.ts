@@ -1,17 +1,14 @@
-import { TENANT_TOKEN_HEADER } from '@unerp/service-kit';
+import { CoreClient } from '@unerp/service-kit';
 import { currentToken } from './token-store';
 
 const CORE_API_URL = (process.env.CORE_API_URL || 'http://localhost:3001').replace(/\/+$/, '');
 
-/**
- * Reads this app's provisioned CustomRecords from core via the ext-callback
- * API, authenticated by echoing the request's tenant token.
- */
+/** A CoreClient bound to the current request's tenant token. */
+export function coreClient(): CoreClient {
+  return new CoreClient({ coreApiUrl: CORE_API_URL, token: currentToken() });
+}
+
+/** Read one provisioned schema's records (thin wrapper over CoreClient). */
 export async function coreRecords(schemaSlug: string): Promise<any[]> {
-  const res = await fetch(`${CORE_API_URL}/api/v1/ext-callback/records/${schemaSlug}`, {
-    headers: { [TENANT_TOKEN_HEADER]: currentToken() },
-  });
-  if (!res.ok) return [];
-  const rows = await res.json().catch(() => []);
-  return Array.isArray(rows) ? rows : [];
+  return coreClient().records(schemaSlug);
 }

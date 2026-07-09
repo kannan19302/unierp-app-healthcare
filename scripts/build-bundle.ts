@@ -14,7 +14,7 @@ const rewritten = JSON.parse(
 
 const manifest = {
   ...rewritten,
-  version: '3.0.0',
+  version: '3.1.0',
   apiVersion: 1,
   vendor: 'unierp',
   runtime: 'declarative+service',
@@ -23,7 +23,7 @@ const manifest = {
     baseUrlEnv: 'HEALTHCARE_SERVICE_URL',
     defaultBaseUrl: 'http://localhost:4104',
     healthcheck: '/svc/health',
-    scopes: ['healthcare:rw'],
+    scopes: ['healthcare:read', 'healthcare:write'],
     timeoutMs: 15000,
   },
 };

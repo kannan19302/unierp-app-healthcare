@@ -1,7 +1,9 @@
-import { Controller, Get, Post, Patch, Param, Req, Body } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Param, Req, Body, UseGuards } from '@nestjs/common';
 import { TenantRequest } from './tenant';
+import { ScopeGuard } from './scope.guard';
 import { ClinicalService } from './clinical.service';
 
+@UseGuards(ScopeGuard)
 @Controller('clinical')
 export class ClinicalController {
   constructor(private readonly clinicalService: ClinicalService) {}

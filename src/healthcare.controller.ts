@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Req, Query, Body } from '@nestjs/common';
+import { Controller, Get, Post, Req, Query, Body, UseGuards } from '@nestjs/common';
 import { TenantRequest } from './tenant';
+import { ScopeGuard } from './scope.guard';
 import { HealthcareService } from './healthcare.service';
 
 
+@UseGuards(ScopeGuard)
 @Controller()
 export class HealthcareController {
   constructor(private readonly service: HealthcareService) {}

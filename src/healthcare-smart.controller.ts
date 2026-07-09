@@ -1,5 +1,6 @@
-import { Controller, Get, Post, Query, Req, Body } from '@nestjs/common';
+import { Controller, Get, Post, Query, Req, Body, UseGuards } from '@nestjs/common';
 import { TenantRequest } from './tenant';
+import { ScopeGuard } from './scope.guard';
 import { HealthcareSmartService } from './healthcare-smart.service';
 
 
@@ -8,6 +9,7 @@ import { HealthcareSmartService } from './healthcare-smart.service';
  * quality measures, FHIR read API) mounted under /api/v1/healthcare/*. Operates on the
  * Healthcare marketplace app's custom records.
  */
+@UseGuards(ScopeGuard)
 @Controller()
 export class HealthcareSmartController {
   constructor(private readonly smart: HealthcareSmartService) {}

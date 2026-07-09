@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { prisma } from './prisma';
 import { REFERENCE_DATA } from './reference-data';
-import { coreRecords } from './core-client';
+import { coreRecords, coreClient } from './core-client';
 
 const APP = 'healthcare';
 
@@ -89,11 +88,15 @@ export class HealthcareSmartService {
   }
 
   // ── Quality measures (HEDIS/MIPS-style, computed) ──
-  async qualityMeasures(tenantId: string) {
-    const patients = await this.records(tenantId, 'patient');
-    const problems = await this.records(tenantId, 'problem');
-    const labs = await this.records(tenantId, 'lab-result');
-    const immun = await this.records(tenantId, 'immunization-record');
+  async qualityMeasures(_tenantId: string) {
+    // Fetch all four schemas in one round trip instead of four sequential calls (#10).
+    const batch = await coreClient().recordsBatch([
+      `${APP}_patient`, `${APP}_problem`, `${APP}_lab-result`, `${APP}_immunization-record`,
+    ]);
+    const patients = batch[`${APP}_patient`] || [];
+    const problems = batch[`${APP}_problem`] || [];
+    const labs = batch[`${APP}_lab-result`] || [];
+    const immun = batch[`${APP}_immunization-record`] || [];
 
     const diabetics = problems.filter((p) => /diabetes/i.test(p.description || '')).map((p) => p.patient_mrn);
     const diabeticsWithA1c = new Set(labs.filter((l) => /a1c/i.test(l.test_name || '')).map((l) => l.patient_mrn));

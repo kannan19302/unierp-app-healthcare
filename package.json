@@ -11,7 +11,8 @@
     "prisma:generate": "prisma generate",
     "prisma:deploy": "prisma migrate deploy",
     "bundle:validate": "node scripts/validate-bundle.mjs",
-    "migrate:from-core": "node scripts/migrate-from-core.mjs"
+    "migrate:from-core": "node scripts/migrate-from-core.mjs",
+    "test:contract": "node test/contract.mjs"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.0",

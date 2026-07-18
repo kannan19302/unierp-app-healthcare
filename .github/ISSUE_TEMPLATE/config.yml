@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security Vulnerability
+    url: https://github.com/kannan19302/unierp-app-healthcare/security/advisories/new
+    about: Report privately — do not open a public issue for security bugs.
+  - name: Core UniERP repo
+    url: https://github.com/kannan19302/ERPSys
+    about: Issues with core, the extension gateway, or other modules belong there.

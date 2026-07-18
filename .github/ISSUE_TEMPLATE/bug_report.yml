@@ -1,0 +1,32 @@
+name: Bug Report
+description: Report a defect in the Healthcare service
+title: "fix: <short summary>"
+labels: ["bug", "triage"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Commit SHA or bundle version
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Low
+        - Medium
+        - High
+        - Critical
+    validations:
+      required: true
